@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: financial-agent
+  langchain4j:
+    ollama:
+      chat-model:
+        base-url: http://localhost:11434
+        model-name: granite3.3:8b
+        log-requests: true
+        log-responses: true
+
+server:
+  port: 8080
+
+fmp:
+  hostName: https://financialmodelingprep.com
+  financial-estimate: /stable/analyst-estimates?symbol=%s&period=annual&apikey=
+  financial-ratings: /stable/ratings-snapshot?symbol=%s&apikey=
+  financial-target: /stable/price-target-summary?symbol=%s&apikey=
+  api-key: ${fmp_api_key}
+
+logging:
+  level:
+    org.springframework.ai: DEBUG #Enable debug logging for Spring AI
+
