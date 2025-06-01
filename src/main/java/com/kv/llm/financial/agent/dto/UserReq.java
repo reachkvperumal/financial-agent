@@ -10,7 +10,6 @@ import java.io.Serializable;
 @Builder
 @Data
 public class UserReq implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     @NotBlank
     private String symbol;
