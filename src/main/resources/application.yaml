@@ -16,7 +16,7 @@ langchain4j:
       format: json
 
 huggingface:
-  access-token: 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
+  access-token: ${hf_api_key}
 
 ai:
   system-message: |
