@@ -12,8 +12,8 @@ langchain4j:
       temperature: 0.7
       top-k: 40
       timeout: PT360S
-      num-predict: 131072
-      format: json
+      num-predict: 2048
+      # format: json
 
 huggingface:
   access-token: ${hf_api_key}
