@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 @Log4j2
 @Configuration
 public class Initialize {
+    private static final String TOKENIZER_MODEL = "meta-llama/Llama-3.1-8B-Instruct";
+
     @Value("${fmp.hostName:null}")
     private String hostname;
 
@@ -34,12 +36,14 @@ public class Initialize {
         // Initialize TokenCountEstimator with DJL HuggingFaceTokenizer
         TokenCountEstimator estimator = null;
 
-        Map<String, String> token = Optional.ofNullable(apiToken).map(v -> Map.of("accessToken", apiToken)).orElseGet(() -> Map.of());
-        log.info("API TOKEN : {}", token);
+        Map<String, String> options = Optional.ofNullable(apiToken)
+                .filter(v -> !v.isBlank())
+                .map(v -> Map.of("hf_token", v))
+                .orElseGet(Map::of);
         try {
             HuggingFaceTokenizer hfTokenizer = null;
             try {
-                hfTokenizer = HuggingFaceTokenizer.newInstance("meta-llama/Llama-2-7b",token);
+                hfTokenizer = HuggingFaceTokenizer.newInstance(TOKENIZER_MODEL, options);
             } catch (Exception e) {
                 log.info(ExceptionUtils.getStackTrace(e));
                 hfTokenizer = HuggingFaceTokenizer.newInstance("bert-base-uncased");
